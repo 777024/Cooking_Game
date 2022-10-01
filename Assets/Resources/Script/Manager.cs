@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Manager : MonoBehaviour
 {
     // manage mouse click on
     // manage response after mouse click
+    public int score = 0;
+    public TextMeshProUGUI scoreUI;
+
     GameObject cutBoard;
     GameObject pan;
     GameObject seasonings;
@@ -55,6 +60,15 @@ public class Manager : MonoBehaviour
         isGameOver();
     }
 
+    public int Score{
+        get{
+            return score;
+        }
+        set{
+            score = value;
+            scoreUI.text = "Score: " + score.ToString();
+        }
+    }
     void DragIngredient()
     {
 
@@ -102,6 +116,9 @@ public class Manager : MonoBehaviour
         {
             plate.SetRecipe(false);
             //Add score here
+            score += 1;
+            Score += score;
+            
         }
     }
 
