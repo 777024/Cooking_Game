@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 223553611}
   - component: {fileID: 223553610}
   - component: {fileID: 223553609}
+  - component: {fileID: 223553612}
   m_Layer: 0
   m_Name: Ingredients
   m_TagString: Untagged
@@ -386,6 +387,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &223553612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223553608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0b9bbfc9cd34d45b1db3d11c669a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &347996231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,7 +1255,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405164281}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1265,6 +1278,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oil: {fileID: 0}
   burnOff: 0
+  onFire: 0
+  putOffCount: 10
 --- !u!1 &1870025503
 GameObject:
   m_ObjectHideFlags: 0
