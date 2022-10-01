@@ -5,7 +5,7 @@ using UnityEngine;
 public class Plate : MonoBehaviour
 {
 
-    GameObject recipe;
+    public bool recipe;
 
     // Update is called once per frame
     void Update()
@@ -13,7 +13,13 @@ public class Plate : MonoBehaviour
         
     }
 
-    public void SetRecipe(GameObject gameObject){
-        recipe = gameObject;
+    public void SetRecipe(bool r){
+        recipe = r;
+    }
+    public bool isPlateFull(){
+        if (recipe)
+        return true;
+        else
+        return false;
     }
 }

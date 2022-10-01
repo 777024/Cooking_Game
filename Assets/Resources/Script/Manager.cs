@@ -6,12 +6,11 @@ public class Manager : MonoBehaviour
 {
     // manage mouse click on
     // manage response after mouse click
-    GameObject sink;
     GameObject cutBoard;
     GameObject pan;
     GameObject seasonings;
     GameObject Oil;
-    GameObject plate;
+    Plate plate;
     GameObject ingredients;
     Camera cameraM;
     RaycastHit2D hit;
@@ -21,12 +20,11 @@ public class Manager : MonoBehaviour
 
     private void Awake()
     {
-        sink = GameObject.Find("Sink");
         cutBoard = GameObject.Find("CutBoard");
         pan = GameObject.Find("Pan");
         seasonings = GameObject.Find("Seasonings");
         Oil = GameObject.Find("Oil");
-        plate = GameObject.Find("plate");
+        plate = GameObject.Find("Plate").GetComponent<Plate>();
         ingredients = GameObject.Find("Ingredients");
         cameraM = Camera.main;
 
@@ -100,8 +98,9 @@ public class Manager : MonoBehaviour
         {
             panScript.SetSeasoning(gameObject);
         }
-        if (gameObject.name == "Plate" /* && plate is full*/)
+        if (gameObject.name == "Plate" && plate.isPlateFull()/* && plate is full*/)
         {
+            plate.SetRecipe(false);
             //Add score here
         }
     }
