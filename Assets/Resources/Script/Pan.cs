@@ -9,11 +9,11 @@ public class Pan : MonoBehaviour
     public GameObject seasonings;
     public bool burnOff = false;
     public bool onFire = false; 
-    public bool recipieDone = false;
+    public bool recipeDone = false;
     public int putOffCount = 10;
     Collider2D colliderPan;
  
-    // if pan has ingredients -> recipies burn after 10s with your pan
+    // if pan has ingredients -> recipes burn after 10s with your pan
     // if pan only has oil    -> set on fire in 3 seconds
     // if pan was null        -> burn off the pan in 10 sec, game over
     void Start()
@@ -29,13 +29,14 @@ public class Pan : MonoBehaviour
         {
             if (ingredients != null && seasonings != null)
             {
-                StartCoroutine("RecipieBurn");
+                StopCoroutine("OilOnFire");
+                StartCoroutine("RecipeBurn");
                 colliderPan.enabled = true;
-                if (recipieDone)
+                if (recipeDone)
                 {
-                    StopCoroutine("RecipieBurn");
-                    Debug.Log("recipie burn stop");
-                    recipieDone = false;
+                    StopCoroutine("RecipeBurn");
+                    Debug.Log("recipe burn stop");
+                    recipeDone = false;
                     CleanPan();
                 }
             }
@@ -46,20 +47,33 @@ public class Pan : MonoBehaviour
     }
 
     public void Setoil(GameObject gameObject){
+        if(IsPanEmpty())
         oil = gameObject;
     }
 
-    public void SetIngredients(GameObject gameObject){
-        ingredients = gameObject;
+    public bool SetIngredients(GameObject gameObject){
+        if(oil && seasonings){
+            ingredients = gameObject;
+            return true;
+        }
+        return false;
+        
     }
 
     public void SetSeasoning(GameObject gameObject){
+        if(oil && !ingredients)
         seasonings = gameObject;
     }
     void CleanPan(){
         oil = null;
         ingredients = null;
         seasonings = null;
+    }
+    bool IsPanEmpty(){
+        if(oil == null && ingredients == null && seasonings == null)
+        return true;
+        else
+        return false;
     }
 
     void PutOutFire(){
@@ -86,7 +100,7 @@ public class Pan : MonoBehaviour
 
     private void OnMouseDown() {
         if (ingredients != null){
-            recipieDone = true;
+            recipeDone = true;
         }else{
             putOffCount -= 1;
         }
@@ -108,8 +122,8 @@ public class Pan : MonoBehaviour
         BurnOff();
     }
 
-    private IEnumerator RecipieBurn(){
-        Debug.Log("RecipieBurn");
+    private IEnumerator RecipeBurn(){
+        Debug.Log("RecipeBurn");
         yield return new WaitForSeconds(10f);
         BurnOff();
     }

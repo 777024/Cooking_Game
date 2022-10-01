@@ -48,8 +48,10 @@ public class Manager : MonoBehaviour
             DragIngredient();
             if (hit.collider.gameObject.name == "CutBoard" && ingredientOnBoard != null && panScript.ingredients == null)
             {
-                panScript.SetIngredients(ingredientOnBoard);
-                ingredientOnBoard = null;
+                if (panScript.SetIngredients(ingredientOnBoard))
+                {
+                    ingredientOnBoard = null;
+                }
             }
         }
         isGameOver();
@@ -97,6 +99,10 @@ public class Manager : MonoBehaviour
         if (gameObject.name == "Seasonings")
         {
             panScript.SetSeasoning(gameObject);
+        }
+        if (gameObject.name == "Plate" /* && plate is full*/)
+        {
+            //Add score here
         }
     }
 
