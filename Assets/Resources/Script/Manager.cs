@@ -37,7 +37,7 @@ public class Manager : MonoBehaviour
         hit = Physics2D.Raycast(cameraM.ScreenToWorldPoint(MousePos()), Vector2.zero);
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.gameObject);
+            // Debug.Log(hit.collider.gameObject);
             AddOil(hit.collider.gameObject);
         }
     }
