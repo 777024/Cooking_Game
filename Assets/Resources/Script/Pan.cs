@@ -15,6 +15,7 @@ public class Pan : MonoBehaviour
     public int putOffCount = 10;
     Collider2D colliderPan;
     Plate plateScript;
+    AudioSource audioSource;
  
     // if pan has ingredients -> recipes burn after 10s with your pan
     // if pan only has oil    -> set on fire in 3 seconds
@@ -24,6 +25,7 @@ public class Pan : MonoBehaviour
        colliderPan = gameObject.GetComponent<CircleCollider2D>();
        plate = GameObject.Find("Plate");
        plateScript = plate.GetComponent<Plate>();
+       audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class Pan : MonoBehaviour
     {
         if (oil != null)
         {
+            // audioSource.Play();
             StopCoroutine("PanBurn");
             if (ingredients != null && seasonings != null)
             {
@@ -41,7 +44,7 @@ public class Pan : MonoBehaviour
                 {
                     StopCoroutine("RecipeBurn");
                     plateScript.SetRecipe();
-                    Debug.Log("recipe burn stop");
+                    //Debug.Log("recipe burn stop");
                     recipeDone = false;
                     colliderPan.enabled = false;
                     CleanPan();
@@ -110,7 +113,7 @@ public class Pan : MonoBehaviour
                 onFire = false;
                 ResourcesPool.GetInstance().RecycleObj(fire);
                 fire = null;
-                Debug.Log("put off");
+                //Debug.Log("put off");
                 putOffCount = 10;
                 colliderPan.enabled = false;
                 CleanPan();
@@ -142,7 +145,7 @@ public class Pan : MonoBehaviour
 
     private IEnumerator OilOnFire(){
         yield return new WaitForSeconds(4f);
-        Debug.Log("onfire");
+        //Debug.Log("onfire");
         fire = ResourcesPool.GetInstance().GetObj("Fire");
         fire.transform.position = new Vector3(0.140000001f,2.52999997f,0);
         onFire = true;

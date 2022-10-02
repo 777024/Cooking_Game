@@ -54,6 +54,7 @@ public class Manager : MonoBehaviour
             {
                 if (panScript.SetIngredients(ingredientOnBoard))
                 {
+                    // gameObject.GetComponent<AudioSource>().Play();
                     ingredientOnBoard = null;
                 }
             }
@@ -131,7 +132,8 @@ public class Manager : MonoBehaviour
     {
         if (panScript.burnOff)
         {
-            Debug.Log("GAME OVER");
+            // Debug.Log("GAME OVER");
+            SceneManager.LoadScene("Gameover");
         }
     }
 }

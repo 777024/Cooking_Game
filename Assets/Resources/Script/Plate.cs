@@ -16,7 +16,7 @@ public class Plate : MonoBehaviour
     public void SetRecipe(){
         if (!recipe)
         {
-            Debug.Log("setRecipe");
+            //Debug.Log("setRecipe");
             recipe = GetRandomRecipe(randomValue);
             recipe.transform.position = new Vector3(-8.98999977f,3.58999991f,0);
         } 
