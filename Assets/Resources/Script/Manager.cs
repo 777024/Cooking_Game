@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -120,7 +121,7 @@ public class Manager : MonoBehaviour
             {
                 score += 50;
                 // Score += score;
-                scoreUI.text = "Score: " + score.ToString();
+                scoreUI.text = "Money you earned: " + score.ToString();
             }
             
         }

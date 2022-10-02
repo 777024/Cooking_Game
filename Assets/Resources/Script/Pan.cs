@@ -31,6 +31,7 @@ public class Pan : MonoBehaviour
     {
         if (oil != null)
         {
+            StopCoroutine("PanBurn");
             if (ingredients != null && seasonings != null)
             {
                 StopCoroutine("OilOnFire");
@@ -48,6 +49,10 @@ public class Pan : MonoBehaviour
             }
             else
             StartCoroutine("OilOnFire");
+        }
+        if (IsPanEmpty())
+        {
+            StartCoroutine("PanBurn");
         }
         PutOutFire();
     }
@@ -148,6 +153,11 @@ public class Pan : MonoBehaviour
 
     private IEnumerator RecipeBurn(){
         // Debug.Log("RecipeBurn");
+        yield return new WaitForSeconds(10f);
+        BurnOff();
+    }
+
+    private IEnumerator PanBurn(){
         yield return new WaitForSeconds(10f);
         BurnOff();
     }

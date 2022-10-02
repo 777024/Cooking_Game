@@ -927,7 +927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c50e5c205b559b4daf7956e61c888ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipe: 0
+  recipe: {fileID: 0}
+  randomValue: 0
 --- !u!1 &650586244
 GameObject:
   m_ObjectHideFlags: 0
