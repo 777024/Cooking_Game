@@ -14,32 +14,32 @@ public class Manager : MonoBehaviour
 
     GameObject cutBoard;
     GameObject pan;
-    GameObject seasonings;
-    GameObject Oil;
+    // GameObject seasonings;
+    // GameObject Oil;
     Plate plate;
-    GameObject ingredients;
+    // GameObject ingredients;
     Camera cameraM;
     RaycastHit2D hit;
     Pan panScript;
-    Ingredients ingredientsScript;
+    // Ingredients ingredientsScript;
     public GameObject ingredientOnBoard;
 
     private void Awake()
     {
-        cutBoard = GameObject.Find("CutBoard");
+        // cutBoard = GameObject.Find("CutBoard");
         pan = GameObject.Find("Pan");
-        seasonings = GameObject.Find("Seasonings");
-        Oil = GameObject.Find("Oil");
+        // seasonings = GameObject.Find("Seasonings");
+        // Oil = GameObject.Find("Oil");
         plate = GameObject.Find("Plate").GetComponent<Plate>();
-        ingredients = GameObject.Find("Ingredients");
+        // ingredients = GameObject.Find("Ingredients");
         cameraM = Camera.main;
-
+        Application.targetFrameRate = 20;
     }
 
     private void Start()
     {
         panScript = pan.GetComponent<Pan>();
-        ingredientsScript = ingredients.GetComponent<Ingredients>();
+        // ingredientsScript = ingredients.GetComponent<Ingredients>();
     }
 
     private void Update()
