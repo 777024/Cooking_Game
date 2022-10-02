@@ -60,15 +60,15 @@ public class Manager : MonoBehaviour
         isGameOver();
     }
 
-    public int Score{
-        get{
-            return score;
-        }
-        set{
-            score = value;
-            scoreUI.text = "Score: " + score.ToString();
-        }
-    }
+    // public int Score{
+    //     get{
+    //         return score;
+    //     }
+    //     set{
+    //         score = value;
+    //         scoreUI.text = "Score: " + score.ToString();
+    //     }
+    // }
     void DragIngredient()
     {
 
@@ -106,7 +106,7 @@ public class Manager : MonoBehaviour
     {
         if (gameObject.name == "Oil")
         {
-            panScript.Setoil(gameObject);
+            panScript.Setoil();
         }
         if (gameObject.name == "Seasonings")
         {
@@ -114,10 +114,14 @@ public class Manager : MonoBehaviour
         }
         if (gameObject.name == "Plate" && plate.isPlateFull()/* && plate is full*/)
         {
-            plate.SetRecipe(false);
+            plate.Serve();
             //Add score here
-            score += 1;
-            Score += score;
+            if (Input.GetMouseButtonDown(0))
+            {
+                score += 50;
+                // Score += score;
+                scoreUI.text = "Score: " + score.ToString();
+            }
             
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pan : MonoBehaviour
 {
     public GameObject oil;
+    public GameObject fire;
     public GameObject ingredients;
     public GameObject seasonings;
     GameObject plate;
@@ -38,7 +39,7 @@ public class Pan : MonoBehaviour
                 if (recipeDone && !plateScript.isPlateFull())
                 {
                     StopCoroutine("RecipeBurn");
-                    plateScript.SetRecipe(recipeDone);
+                    plateScript.SetRecipe();
                     Debug.Log("recipe burn stop");
                     recipeDone = false;
                     colliderPan.enabled = false;
@@ -51,14 +52,15 @@ public class Pan : MonoBehaviour
         PutOutFire();
     }
 
-    public void Setoil(GameObject gameObject){
+    public void Setoil(){
         if(IsPanEmpty())
-        oil = gameObject;
+        oil = ResourcesPool.GetInstance().GetObj("Oil");
     }
 
     public bool SetIngredients(GameObject gameObject){
         if(oil && seasonings){
             ingredients = gameObject;
+            ingredients.transform.position = new Vector3(0.140000001f,2.52999997f,0);
             return true;
         }
         return false;
@@ -67,12 +69,20 @@ public class Pan : MonoBehaviour
 
     public void SetSeasoning(GameObject gameObject){
         if(oil && !ingredients)
-        seasonings = gameObject;
+        seasonings = ResourcesPool.GetInstance().GetObj("Spices");
     }
     void CleanPan(){
+        ResourcesPool.GetInstance().RecycleObj(oil);
         oil = null;
-        ingredients = null;
-        seasonings = null;
+        if(ingredients){
+            ResourcesPool.GetInstance().RecycleObj(ingredients);
+            ingredients = null;
+        }
+        if (seasonings)
+        {
+            ResourcesPool.GetInstance().RecycleObj(seasonings);
+            seasonings = null;
+        }
     }
     bool IsPanEmpty(){
         if(oil == null && ingredients == null && seasonings == null)
@@ -91,6 +101,7 @@ public class Pan : MonoBehaviour
             {
                 StopCoroutine("Timer");
                 onFire = false;
+                ResourcesPool.GetInstance().RecycleObj(fire);
                 Debug.Log("put off");
                 putOffCount = 10;
                 colliderPan.enabled = false;
@@ -103,6 +114,10 @@ public class Pan : MonoBehaviour
         }
     }
 
+
+
+    
+
     private void OnMouseDown() {
         if (ingredients != null){
             recipeDone = true;
@@ -112,23 +127,27 @@ public class Pan : MonoBehaviour
     }
     void BurnOff(){
         burnOff = true;
-        Debug.Log("Burn off");
+        // Debug.Log("Burn off");
     }
+
+
 
     private IEnumerator OilOnFire(){
         yield return new WaitForSeconds(4f);
         Debug.Log("onfire");
+        fire = ResourcesPool.GetInstance().GetObj("Fire");
+        fire.transform.position = new Vector3(0.140000001f,2.52999997f,0);
         onFire = true;
     }
 
     private IEnumerator Timer(){
-        Debug.Log("Timer");
+        // Debug.Log("Timer");
         yield return new WaitForSeconds(6f);
         BurnOff();
     }
 
     private IEnumerator RecipeBurn(){
-        Debug.Log("RecipeBurn");
+        // Debug.Log("RecipeBurn");
         yield return new WaitForSeconds(10f);
         BurnOff();
     }
