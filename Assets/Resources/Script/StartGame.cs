@@ -7,13 +7,18 @@ using TMPro;
 public class StartGame : MonoBehaviour
 {
     public TextMeshProUGUI TextUI;
+    bool stoveIgnite = false;
     int nextCount = 0;
     GameObject nextButton;
     GameObject startButton;
+    AudioSource audioSource;
+    public AudioClip audioClip;
     private void Start() {
         nextButton = GameObject.Find("NextButton");
         startButton = GameObject.Find("StartButton");
         startButton.SetActive(false);
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.Stop();
     }
     public void ChangeScene(){
         SceneManager.LoadScene("Scene1");
@@ -42,13 +47,30 @@ public class StartGame : MonoBehaviour
             nextCount++; 
         }else if(nextCount == 5){
             TextUI.text = "I think you are ready now";
-            nextCount = 0; 
+            nextCount ++; 
+        }else if(nextCount == 6){
+            TextUI.text = "Igniting the stove...";
+            audioSource.Play();
+            stoveIgnite = true;
             nextButton.SetActive(false);
-            startButton.SetActive(true);
         }
     }
 
     public void StoveIgnite(){
-        
+        TextUI.text = "Igniting the stove...";
+        audioSource.Play();
+        stoveIgnite = true;
+    }
+
+    private void Update() {
+        if (!audioSource.isPlaying && stoveIgnite)
+        {
+            TextUI.text = "Oh, the valve is broken, it can't be turned off!\n Go and do something!";
+            audioSource.clip = audioClip;
+            audioSource.loop = true;
+            audioSource.Play();
+            startButton.SetActive(true);
+            
+        }
     }
 }

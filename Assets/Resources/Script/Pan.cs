@@ -77,8 +77,10 @@ public class Pan : MonoBehaviour
         seasonings = ResourcesPool.GetInstance().GetObj("Spices");
     }
     void CleanPan(){
-        ResourcesPool.GetInstance().RecycleObj(oil);
-        oil = null;
+        if(oil){
+            ResourcesPool.GetInstance().RecycleObj(oil);
+            oil = null;
+        }
         if(ingredients){
             ResourcesPool.GetInstance().RecycleObj(ingredients);
             ingredients = null;
@@ -107,6 +109,7 @@ public class Pan : MonoBehaviour
                 StopCoroutine("Timer");
                 onFire = false;
                 ResourcesPool.GetInstance().RecycleObj(fire);
+                fire = null;
                 Debug.Log("put off");
                 putOffCount = 10;
                 colliderPan.enabled = false;
